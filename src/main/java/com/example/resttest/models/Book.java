@@ -1,10 +1,14 @@
 package com.example.resttest.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 public class Book implements Serializable {
+    @JsonIgnore
     private String title;
     private String author;
+    @JsonIgnore
     private int id;
     private static final long serialVersionUID=1;
 

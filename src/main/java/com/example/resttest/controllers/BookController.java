@@ -1,10 +1,9 @@
 package com.example.resttest.controllers;
 
 import com.example.resttest.models.Book;
+import com.example.resttest.models.Response;
 import com.example.resttest.repositories.DatabaseSimulator;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,4 +64,54 @@ public class BookController {
         }
         return res;
     }
+
+    @RequestMapping(value = "/book/{id}/delete",produces = "application/json")
+    public Response deleteByID(@PathVariable int id)
+    {
+        Response response=new Response("Book deleted",false);
+        int indexToRemove=-1;
+        for (int i = 0; i < bookList.size(); i++) {
+            if(bookList.get(i).getId()==id)
+                indexToRemove=i;
+
+        }
+        if(indexToRemove!=-1)
+        {
+            bookList.remove(indexToRemove);
+            response.setStatus(true);
+        }
+        else
+            response.setMessage("Not found");
+
+        return response;
+    }
+
+
+    @PostMapping("/book/add")
+public Response addBook(@RequestBody Book book)
+{
+    Response response=new Response("Book added",false);
+   if((book.getId()!=0) &&(book.getAuthor()!=null) && book.getTitle()!=null ) {
+        bookList.add(book);
+        response.setStatus(true);
+    }
+    else
+        response.setMessage("failed to add");
+    return response;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
