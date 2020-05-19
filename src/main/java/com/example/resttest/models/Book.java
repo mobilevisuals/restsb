@@ -1,14 +1,13 @@
 package com.example.resttest.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 
-public class Book implements Serializable {
-    @JsonIgnore
+public class Book extends RepresentationModel implements Serializable {
+
     private String title;
     private String author;
-    @JsonIgnore
     private int id;
     private static final long serialVersionUID=1;
 
